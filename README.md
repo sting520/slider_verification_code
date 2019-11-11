@@ -4,34 +4,36 @@
 简单滑块验证码
 
 #### 软件架构
-软件架构说明
+servlet
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1、引入silder_code.jar。
+2、配置web.xml文件
+ <servlet>
+        <servlet-name>yzmServlet</servlet-name>
+        <servlet-class>com.power.yzm.servlet.YzmServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yzmServlet</servlet-name>
+        <url-pattern>/yzmServlet</url-pattern>
+    </servlet-mapping>
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 码云特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+ 
+	
+3、将web文件拷贝进入项目。
+4、验证码验证
+  String yzm = request.getParameter("yzm");
+ Integer location_x = (Integer) request.getSession().getAttribute("location_x");
+        if ((Integer.valueOf(yzm) < location_x + 4) && (Integer.valueOf(yzm) > location_x - 4)) {
+            request.setAttribute("msg", "登录成功");
+            request.getRequestDispatcher("/result.jsp").forward(request, response);
+        } else {
+            request.setAttribute("msg", "图形验证失败");
+            request.getRequestDispatcher("/result.jsp").forward(request, response);
+        }
+5、sourceYzmImg 这个文件夹下面就是验证码图片 
+也可以自己拷贝进去 想要图片    	
+260 * 116 
+图片大小 	
